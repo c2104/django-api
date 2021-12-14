@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+    web:
+        container_name: django-docker
+        build: ./
+        command: sh -c "./wait-for-it.sh db:3306; python3 manage.py runserver 0.0.0.0:8000"
+        working_dir: /code
+        ports:
+            - 9003:8000
+        volumes:
+            - .:/code
+        depends_on:
+            - db
+    db:
+        container_name: django-docker-db
+        image: mysql:8
+        volumes:
+            - ./mysql:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: django_docker
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_PASSWORD: root
+        cap_add:
+        - SYS_NICE
+        ports:
+            - "3308:3306"
