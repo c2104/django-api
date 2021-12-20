@@ -12,6 +12,8 @@ services:
             - .:/code
         depends_on:
             - db
+        extra_hosts:
+            - localhost:192.168.0.1
     db:
         container_name: django-docker-db
         image: mysql:8
