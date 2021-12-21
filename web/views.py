@@ -31,7 +31,8 @@ def save(request):
 
 def request_api(image_path):
     return requests.post(
-        'http://localhost:9003/api/v1/',
+        'http://example.com/api/v1/',
+        # 'http://localhost:9003/api/v1/',
         headers = {'Content-Type': 'application/json'},
         data = json.dumps({'image_path' : image_path}),
         timeout = 1
